@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "dcc94f78-7879-49ca-8359-16336f7aa500",
+		"name": "Sakila",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "64855"
+	},
+	"item": [
+		{
+			"name": "Film",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{srv}}/api/films?page=1&page_size=2",
+							"host": [
+								"{{srv}}"
+							],
+							"path": [
+								"api",
+								"films"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "page_size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{srv}}/api/films/1043",
+							"host": [
+								"{{srv}}"
+							],
+							"path": [
+								"api",
+								"films",
+								"1043"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Nothing\",\n    \"description\": \"hello world\",\n    \"languageId\": 2,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 6,\n    \"originalLanguageId\": 1,\n    \"rentalRate\":3.5,\n    \"replacementCost\":20,\n    \"rentalDuration\":3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{srv}}/api/films/1070",
+							"host": [
+								"{{srv}}"
+							],
+							"path": [
+								"api",
+								"films",
+								"1070"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"pridde and prejduce \",\n    \"description\": \"hello\",\n    \"languageId\": 1,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 4,\n    \"originalLanguageId\": 1,\n    \"rentalRate\":3.5,\n    \"replacementCost\":20,\n    \"rentalDuration\":3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{srv}}/api/films",
+							"host": [
+								"{{srv}}"
+							],
+							"path": [
+								"api",
+								"films"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Nothing\",\n    \"description\": \"hello world\",\n    \"languageId\": 2,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 6,\n    \"originalLanguageId\": 1,\n    \"rentalRate\":3.5,\n    \"replacementCost\":20,\n    \"rentalDuration\":3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{srv}}/api/films/1075",
+							"host": [
+								"{{srv}}"
+							],
+							"path": [
+								"api",
+								"films",
+								"1075"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "srv",
+			"value": "http://127.0.0.1:8080",
+			"type": "string"
+		}
+	]
+}
