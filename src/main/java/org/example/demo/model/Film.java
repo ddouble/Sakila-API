@@ -77,6 +77,7 @@ public class Film {
     private Instant lastUpdate;
 
     @OneToMany(mappedBy = "film")
+    @OrderBy("id DESC")
     private Set<Inventory> inventories = new LinkedHashSet<>();
 
     @ManyToMany
@@ -86,6 +87,7 @@ public class Film {
     private Set<Category> categories = new LinkedHashSet<>();
 
     @ManyToMany
+    @OrderBy("firstName ASC, lastName ASC")
     @JoinTable(name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
