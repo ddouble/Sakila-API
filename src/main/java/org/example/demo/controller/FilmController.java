@@ -9,11 +9,9 @@ import org.example.demo.dto.FilmInputDto;
 import org.example.demo.mapper.FilmMapper;
 import org.example.demo.model.Film;
 import org.example.demo.repository.FilmRepository;
+import org.example.demo.utils.PaginationQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,15 +34,28 @@ public class FilmController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FilmDto>> index(@RequestParam(defaultValue = "0") int page,
-                                               @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
+    public ResponseEntity<Page<FilmDto>> index(@RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
+                                               @RequestParam(name = "title", defaultValue = "") String title) {
 
-        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"), Sort.Order.asc("title")));
+        if (page < 1) page = 1;
 
-        Page<Film> list = filmRepository.findAll(pageable);
+//        // the repository way to get a list of entities
+//        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"), Sort.Order.asc("title")));
+//        Page<Film> filmList = filmRepository.findAll(pageable);
+
+
+        // the jpql way can do complex query
+        Page<Film> filmList = PaginationQuery.executeQuery(entityManager,
+                "SELECT f FROM Film f WHERE f.title LIKE :title ORDER BY f.id DESC, f.title ASC",
+                Map.of("title", "%" + title + "%"),
+                page,
+                pageSize,
+                Film.class
+        );
 
         return ResponseEntity.ok(
-                list.map(FilmMapper.INSTANCE::toDto)
+                filmList.map(FilmMapper.INSTANCE::toDto)
         );
     }
 
