@@ -1,4 +1,6 @@
-package org.example.demo.model;
+package org.example.demo.dto;
+
+import org.example.demo.model.Store;
 
 import java.io.Serializable;
 import java.time.Instant;

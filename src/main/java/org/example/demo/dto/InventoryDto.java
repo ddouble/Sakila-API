@@ -1,7 +1,5 @@
 package org.example.demo.dto;
 
-import org.example.demo.model.StoreDto;
-
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
