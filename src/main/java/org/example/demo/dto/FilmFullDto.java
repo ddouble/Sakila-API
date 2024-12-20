@@ -25,8 +25,9 @@ public class FilmFullDto implements Serializable {
     private final Instant lastUpdate;
     private final Set<InventoryDto> inventories;
     private final Set<CategoryDto> categories;
+    private final Set<ActorDto> actors;
 
-    public FilmFullDto(Integer id, String title, String description, Integer releaseYear, LanguageDto language, LanguageDto originalLanguage, Short rentalDuration, BigDecimal rentalRate, Integer length, BigDecimal replacementCost, String rating, String specialFeatures, Instant lastUpdate, Set<InventoryDto> inventories, Set<CategoryDto> categories) {
+    public FilmFullDto(Integer id, String title, String description, Integer releaseYear, LanguageDto language, LanguageDto originalLanguage, Short rentalDuration, BigDecimal rentalRate, Integer length, BigDecimal replacementCost, String rating, String specialFeatures, Instant lastUpdate, Set<InventoryDto> inventories, Set<CategoryDto> categories, Set<ActorDto> actors) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -42,6 +43,7 @@ public class FilmFullDto implements Serializable {
         this.lastUpdate = lastUpdate;
         this.inventories = inventories;
         this.categories = categories;
+        this.actors = actors;
     }
 
     public Integer getId() {
@@ -104,6 +106,10 @@ public class FilmFullDto implements Serializable {
         return categories;
     }
 
+    public Set<ActorDto> getActors() {
+        return actors;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -128,7 +134,7 @@ public class FilmFullDto implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, releaseYear, language, originalLanguage, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, lastUpdate, inventories, categories);
+        return Objects.hash(id, title);
     }
 
     @Override
@@ -148,6 +154,7 @@ public class FilmFullDto implements Serializable {
                 "specialFeatures = " + specialFeatures + ", " +
                 "lastUpdate = " + lastUpdate + ", " +
                 "inventories = " + inventories + ", " +
-                "categories = " + categories + ")";
+                "categories = " + categories + ", " +
+                "actors = " + actors + ")";
     }
 }

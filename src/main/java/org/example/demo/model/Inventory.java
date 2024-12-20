@@ -20,6 +20,18 @@ public class Inventory {
     @Column(name = "last_update", nullable = false)
     private Instant lastUpdate;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
     public Integer getId() {
         return id;
     }

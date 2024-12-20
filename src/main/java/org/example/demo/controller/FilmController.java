@@ -2,6 +2,7 @@ package org.example.demo.controller;
 
 import jakarta.persistence.EntityManager;
 import org.example.demo.dto.FilmDto;
+import org.example.demo.dto.FilmFullDto;
 import org.example.demo.dto.FilmInputDto;
 import org.example.demo.mapper.FilmMapper;
 import org.example.demo.model.Film;
@@ -53,14 +54,14 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FilmDto> show(@PathVariable int id) {
+    public ResponseEntity<FilmFullDto> show(@PathVariable int id) {
 
         Film film = filmRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Film not found")
         );
 
         return ResponseEntity.ok(
-                FilmMapper.INSTANCE.toDto(film)
+                FilmMapper.INSTANCE.toFullDto(film)
         );
     }
 

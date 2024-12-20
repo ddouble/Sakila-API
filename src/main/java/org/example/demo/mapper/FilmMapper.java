@@ -1,6 +1,7 @@
 package org.example.demo.mapper;
 
 import org.example.demo.dto.FilmDto;
+import org.example.demo.dto.FilmFullDto;
 import org.example.demo.dto.FilmInputDto;
 import org.example.demo.model.Film;
 import org.mapstruct.*;
@@ -15,6 +16,8 @@ public interface FilmMapper {
     Film toEntity(FilmInputDto filmDto);
 
     FilmDto toDto(Film film);
+
+    FilmFullDto toFullDto(Film film);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Film partialUpdate(FilmDto filmDto, @MappingTarget Film film);
