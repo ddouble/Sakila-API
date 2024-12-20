@@ -1,6 +1,8 @@
 package org.example.demo.controller;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.example.demo.dto.FilmDto;
 import org.example.demo.dto.FilmFullDto;
 import org.example.demo.dto.FilmInputDto;
@@ -26,6 +28,7 @@ public class FilmController {
     private final FilmRepository filmRepository;
 
     @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     public FilmController(FilmRepository filmRepository) {
@@ -45,20 +48,20 @@ public class FilmController {
         );
     }
 
-    private Film test(Integer id) {
-        Film film = filmRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Film not found")
-        );
-
-        return film;
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<FilmFullDto> show(@PathVariable int id) {
 
-        Film film = filmRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Film not found")
-        );
+//        // the repository way to get an entity
+//        Film film = filmRepository.findById(id).orElseThrow(
+//                () -> new RuntimeException("Film not found")
+//        );
+
+        // the jpql way can do complex query
+        TypedQuery<Film> query = entityManager.createQuery(
+                "SELECT f FROM Film f WHERE f.id = :id",
+                Film.class);
+        query.setParameter("id", id);
+        Film film = query.getSingleResult();
 
         return ResponseEntity.ok(
                 FilmMapper.INSTANCE.toFullDto(film)
