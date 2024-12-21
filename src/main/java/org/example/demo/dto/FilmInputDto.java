@@ -1,6 +1,8 @@
 package org.example.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -11,6 +13,7 @@ import java.util.Objects;
 /**
  * DTO for {@link org.example.demo.model.Film}
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FilmInputDto implements Serializable {
     private final Integer id;
 
@@ -20,6 +23,8 @@ public class FilmInputDto implements Serializable {
     @NotEmpty
     private final String description;
     private final Integer releaseYear;
+
+    @NotNull
     private final Short languageId;
     private final Short originalLanguageId;
     private final Short rentalDuration;
