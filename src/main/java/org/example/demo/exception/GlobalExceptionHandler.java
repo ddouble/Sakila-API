@@ -1,5 +1,6 @@
 package org.example.demo.exception;
 
+import com.google.common.base.CaseFormat;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
+            String snakeCaseFieldName = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, error.getField());
+
+            errors.put(snakeCaseFieldName, error.getDefaultMessage());
         }
         ErrorResponse errorResponse = new ErrorResponse("Validation failed", errors, System.currentTimeMillis());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
