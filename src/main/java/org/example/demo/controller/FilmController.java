@@ -25,7 +25,6 @@ import java.util.Map;
 public class FilmController {
     private final FilmRepository filmRepository;
 
-    @Autowired
     @PersistenceContext
     private EntityManager entityManager;
 
