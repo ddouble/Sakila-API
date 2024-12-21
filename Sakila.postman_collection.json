@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{srv}}/api/films?page=1&page_size=2",
+							"raw": "{{srv}}/api/films?page=1&page_size=10&release_year=1987",
 							"host": [
 								"{{srv}}"
 							],
@@ -30,7 +30,16 @@
 								},
 								{
 									"key": "page_size",
-									"value": "2"
+									"value": "10"
+								},
+								{
+									"key": "title",
+									"value": "terminatorfasfasdf",
+									"disabled": true
+								},
+								{
+									"key": "release_year",
+									"value": "1987"
 								}
 							]
 						}
@@ -43,14 +52,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{srv}}/api/films/1043",
+							"raw": "{{srv}}/api/films/60",
 							"host": [
 								"{{srv}}"
 							],
 							"path": [
 								"api",
 								"films",
-								"1043"
+								"60"
 							]
 						}
 					},
@@ -63,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"Nothing\",\n    \"description\": \"hello world\",\n    \"languageId\": 2,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 6,\n    \"originalLanguageId\": 1,\n    \"rentalRate\":3.5,\n    \"replacementCost\":20,\n    \"rentalDuration\":3\n}",
+							"raw": "{\n    \"title\":\"Nothing\",\n    \"description\": \"hello world\",\n    \"language_id\": 2,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 6,\n    \"original_language_id\": 1,\n    \"rental_rate\":3.5,\n    \"replacement_cost\":20,\n    \"rental_duration\":3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,14 +80,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{srv}}/api/films/1070",
+							"raw": "{{srv}}/api/films/1010",
 							"host": [
 								"{{srv}}"
 							],
 							"path": [
 								"api",
 								"films",
-								"1070"
+								"1010"
 							]
 						}
 					},
@@ -91,7 +100,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\":\"pridde and prejduce \",\n    \"description\": \"hello\",\n    \"languageId\": 1,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 4,\n    \"originalLanguageId\": 1,\n    \"rentalRate\":3.5,\n    \"replacementCost\":20,\n    \"rentalDuration\":3\n}",
+							"raw": "{\n    \"title\":\"pridde and prejduce\",\n    \"description\": \"fowejfpowe\",\n    \"language_id\": 1,\n    // \"lastUpdate\": \"2023-04-08T05:37:55Z\",\n    \"length\": 4,\n    \"original_language_id\": 1,\n    \"rental_rate\":3.5,\n    \"replacement_cost\":20,\n    \"rental_duration\":3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,14 +135,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{srv}}/api/films/1075",
+							"raw": "{{srv}}/api/films/1076",
 							"host": [
 								"{{srv}}"
 							],
 							"path": [
 								"api",
 								"films",
-								"1075"
+								"1076"
 							]
 						}
 					},
