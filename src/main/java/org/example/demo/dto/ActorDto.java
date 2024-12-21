@@ -7,34 +7,7 @@ import java.util.Objects;
 /**
  * DTO for {@link org.example.demo.model.Actor}
  */
-public class ActorDto implements Serializable {
-    private final Integer id;
-    private final String firstName;
-    private final String lastName;
-    private final Instant lastUpdate;
-
-    public ActorDto(Integer id, String firstName, String lastName, Instant lastUpdate) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Instant getLastUpdate() {
-        return lastUpdate;
-    }
+public record ActorDto(Integer id, String firstName, String lastName, Instant lastUpdate) implements Serializable {
 
     @Override
     public boolean equals(Object o) {
