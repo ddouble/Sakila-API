@@ -1,5 +1,7 @@
 package org.example.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -21,6 +23,12 @@ public class FilmDto implements Serializable {
     private final BigDecimal replacementCost;
     private final String rating;
     private final String specialFeatures;
+
+    /**
+     * NOTE: timezone of JsonFormat is set to UTC to avoid json serialization issues
+     * otherwise, will issue the error: "Could not write JSON: Unsupported field: YearOfEra"
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private final Instant lastUpdate;
 
     public FilmDto(Integer id, String title, String description, Integer releaseYear, LanguageDto language, LanguageDto originalLanguage, Short rentalDuration, BigDecimal rentalRate, Integer length, BigDecimal replacementCost, String rating, String specialFeatures, Instant lastUpdate) {
