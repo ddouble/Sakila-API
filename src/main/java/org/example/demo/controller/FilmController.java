@@ -3,6 +3,9 @@ package org.example.demo.controller;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.example.demo.dto.FilmDto;
 import org.example.demo.dto.FilmFullDto;
 import org.example.demo.dto.FilmInputDto;
@@ -10,9 +13,10 @@ import org.example.demo.mapper.FilmMapper;
 import org.example.demo.model.Film;
 import org.example.demo.repository.FilmRepository;
 import org.example.demo.utils.PageQuery;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -21,6 +25,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/films")
+@Validated
 public class FilmController {
     private final FilmRepository filmRepository;
 
@@ -32,9 +37,17 @@ public class FilmController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<FilmDto>> index(@RequestParam(defaultValue = "1") int page,
-                                               @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
-                                               @RequestParam(name = "title", defaultValue = "") String title) {
+    public ResponseEntity<Page<FilmDto>> index(
+            @Min(1)
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
+            @Size.List({
+                    @Size(max = 20, message = "Title must be less than 20 characters")
+            })
+            @RequestParam(name = "title", defaultValue = "") String title,
+            @Pattern(regexp = "^[0-9]{4}$", message = "Release year must be 4 digits")
+            @RequestParam(name = "release_year") String releaseYear
+    ) {
 
         if (page < 1) page = 1;
 
@@ -45,8 +58,12 @@ public class FilmController {
 
         // the jpql way can do complex query
         Page<Film> filmList = (new PageQuery(entityManager, page, pageSize)).fetch(
-                "SELECT f FROM Film f WHERE f.title LIKE :title ORDER BY f.id DESC, f.title ASC",
-                Map.of("title", "%" + title + "%"),
+                """
+                        SELECT f FROM Film f
+                        WHERE f.title LIKE :title AND f.releaseYear = :releaseYear
+                        ORDER BY f.id DESC, f.title ASC""",
+                Map.of("title", "%" + title + "%",
+                        "releaseYear", releaseYear),
                 Film.class
         );
 
