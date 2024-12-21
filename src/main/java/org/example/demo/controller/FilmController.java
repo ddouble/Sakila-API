@@ -44,11 +44,9 @@ public class FilmController {
 
 
         // the jpql way can do complex query
-        Page<Film> filmList = PaginationQuery.fetch(entityManager,
+        Page<Film> filmList = (new PaginationQuery(entityManager, page, pageSize)).fetch(
                 "SELECT f FROM Film f WHERE f.title LIKE :title ORDER BY f.id DESC, f.title ASC",
                 Map.of("title", "%" + title + "%"),
-                page,
-                pageSize,
                 Film.class
         );
 

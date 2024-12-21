@@ -11,7 +11,28 @@ import java.util.Map;
 
 public class PaginationQuery {
 
-    public static <T> Page<T> fetch(EntityManager entityManager, String jpql, Map<String, Object> queryParams, int page, int pageSize, Class<T> entityType) {
+    private final EntityManager entityManager;
+    private final int page;
+    private final int pageSize;
+
+    // Default values
+    private static final int DEFAULT_PAGE = 1;
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final int DEFAULT_LINKS_MAX_COUNT = 5;
+
+    // Constructor with default values
+    public PaginationQuery(EntityManager entityManager) {
+        this(entityManager, DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
+    }
+
+    // Constructor with custom values
+    public PaginationQuery(EntityManager entityManager, int page, int pageSize) {
+        this.entityManager = entityManager;
+        this.page = page;
+        this.pageSize = pageSize;
+    }
+
+    public <T> Page<T> fetch(String jpql, Map<String, Object> queryParams, Class<T> entityType) {
         TypedQuery<T> query = entityManager.createQuery(jpql, entityType);
 
         // Set query parameters
@@ -38,10 +59,11 @@ public class PaginationQuery {
         Long totalElements = countQuery.getSingleResult();
         Pageable pageable = PageRequest.of(page - 1, pageSize);
 
+        // return Page object
         return new PageImpl<>(results, pageable, totalElements);
     }
 
-    private static String createCountQuery(String jpql) {
+    private String createCountQuery(String jpql) {
         return "SELECT COUNT(*) " + jpql.substring(jpql.toUpperCase().indexOf("FROM"));
     }
 }
