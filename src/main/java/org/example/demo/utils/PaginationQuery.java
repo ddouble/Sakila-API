@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PaginationQuery {
 
-    public static <T> Page<T> executeQuery(EntityManager entityManager, String jpql, Map<String, Object> queryParams, int page, int pageSize, Class<T> entityType) {
+    public static <T> Page<T> fetch(EntityManager entityManager, String jpql, Map<String, Object> queryParams, int page, int pageSize, Class<T> entityType) {
         TypedQuery<T> query = entityManager.createQuery(jpql, entityType);
 
         // Set query parameters

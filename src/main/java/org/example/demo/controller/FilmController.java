@@ -10,7 +10,6 @@ import org.example.demo.mapper.FilmMapper;
 import org.example.demo.model.Film;
 import org.example.demo.repository.FilmRepository;
 import org.example.demo.utils.PaginationQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +44,7 @@ public class FilmController {
 
 
         // the jpql way can do complex query
-        Page<Film> filmList = PaginationQuery.executeQuery(entityManager,
+        Page<Film> filmList = PaginationQuery.fetch(entityManager,
                 "SELECT f FROM Film f WHERE f.title LIKE :title ORDER BY f.id DESC, f.title ASC",
                 Map.of("title", "%" + title + "%"),
                 page,
