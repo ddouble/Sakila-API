@@ -13,20 +13,20 @@ public class InventoryDto implements Serializable {
     private final FilmDto film;
     private final StoreDto store;
 
-    public InventoryDto(Integer id, Instant lastUpdate, StoreDto store) {
+    public InventoryDto(Integer id, Instant lastUpdate, StoreDto store, FilmDto film) {
         this.id = id;
         this.lastUpdate = lastUpdate;
         this.store = store;
-        this.film = null;
+        this.film = film;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public FilmDto getFilm() {
-        return film;
-    }
+//    public FilmDto getFilm() {
+//        return film;
+//    }
 
     public Instant getLastUpdate() {
         return lastUpdate;

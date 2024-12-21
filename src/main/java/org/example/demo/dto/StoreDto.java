@@ -12,10 +12,13 @@ import java.util.Objects;
 public class StoreDto implements Serializable {
     private final Short id;
     private final Instant lastUpdate;
+    private final AddressDto address;
 
-    public StoreDto(Short id, Instant lastUpdate) {
+    public StoreDto(Short id, Instant lastUpdate,
+                    AddressDto address) {
         this.id = id;
         this.lastUpdate = lastUpdate;
+        this.address = address;
     }
 
     public Short getId() {
@@ -45,5 +48,9 @@ public class StoreDto implements Serializable {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "lastUpdate = " + lastUpdate + ")";
+    }
+
+    public AddressDto getAddress() {
+        return address;
     }
 }
