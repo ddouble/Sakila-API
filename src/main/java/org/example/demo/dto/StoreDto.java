@@ -12,13 +12,16 @@ import java.util.Objects;
 public class StoreDto implements Serializable {
     private final Short id;
     private final Instant lastUpdate;
-    private final AddressDto address;
+    //    private final AddressDto address;
+    private final String storeName;
+    private final String cityName;
 
     public StoreDto(Short id, Instant lastUpdate,
-                    AddressDto address) {
+                    String cityName, String storeName) {
         this.id = id;
         this.lastUpdate = lastUpdate;
-        this.address = address;
+        this.storeName = storeName;
+        this.cityName = cityName;
     }
 
     public Short getId() {
@@ -27,6 +30,14 @@ public class StoreDto implements Serializable {
 
     public Instant getLastUpdate() {
         return lastUpdate;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getCityName() {
+        return cityName;
     }
 
     @Override
@@ -50,7 +61,4 @@ public class StoreDto implements Serializable {
                 "lastUpdate = " + lastUpdate + ")";
     }
 
-    public AddressDto getAddress() {
-        return address;
-    }
 }

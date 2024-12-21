@@ -7,7 +7,7 @@ import org.example.demo.model.Film;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(uses = {InventoryMapper.class})
 public interface FilmMapper {
     FilmMapper INSTANCE = Mappers.getMapper(FilmMapper.class);
 
