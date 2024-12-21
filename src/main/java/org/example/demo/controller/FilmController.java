@@ -3,6 +3,7 @@ package org.example.demo.controller;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -93,7 +94,9 @@ public class FilmController {
     }
 
     @PostMapping
-    public ResponseEntity<FilmDto> create(@RequestBody FilmInputDto filmInputDto) {
+    public ResponseEntity<FilmDto> create(
+            @Valid
+            @RequestBody FilmInputDto filmInputDto) {
         Film filmInput = FilmMapper.INSTANCE.toEntity(filmInputDto);
         filmInput.setLastUpdate(Instant.now());
         Film filmCreated = filmRepository.save(filmInput);
@@ -116,7 +119,9 @@ public class FilmController {
 
     // update controller
     @PutMapping("/{id}")
-    public ResponseEntity<FilmDto> update(@PathVariable int id, @RequestBody FilmInputDto filmInputDto) {
+    public ResponseEntity<FilmDto> update(@PathVariable int id,
+                                          @Valid
+                                          @RequestBody FilmInputDto filmInputDto) {
         Film film = filmRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Film not found")
         );

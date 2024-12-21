@@ -1,5 +1,8 @@
 package org.example.demo.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -10,7 +13,11 @@ import java.util.Objects;
  */
 public class FilmInputDto implements Serializable {
     private final Integer id;
+
+    @Size(max = 20, message = "Title must be less than 20 characters")
     private final String title;
+
+    @NotEmpty
     private final String description;
     private final Integer releaseYear;
     private final Short languageId;
