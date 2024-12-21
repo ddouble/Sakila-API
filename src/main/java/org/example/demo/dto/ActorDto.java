@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * DTO for {@link org.example.demo.model.Actor}
  */
-public record ActorDto(Integer id, String firstName, String lastName, Instant lastUpdate) implements Serializable {
+public record ActorDto(Integer id, String firstName, String lastName, String fullName, Instant lastUpdate) implements Serializable {
 
     @Override
     public boolean equals(Object o) {

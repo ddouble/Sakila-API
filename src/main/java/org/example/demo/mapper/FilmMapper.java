@@ -7,7 +7,7 @@ import org.example.demo.model.Film;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {InventoryMapper.class})
+@Mapper(uses = {InventoryMapper.class, ActorMapper.class})
 public interface FilmMapper {
     FilmMapper INSTANCE = Mappers.getMapper(FilmMapper.class);
 
