@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 
-public class PaginationQuery {
+public class PageQuery {
 
     private final EntityManager entityManager;
     private final int page;
@@ -21,12 +21,12 @@ public class PaginationQuery {
     private static final int DEFAULT_LINKS_MAX_COUNT = 5;
 
     // Constructor with default values
-    public PaginationQuery(EntityManager entityManager) {
+    public PageQuery(EntityManager entityManager) {
         this(entityManager, DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
     }
 
     // Constructor with custom values
-    public PaginationQuery(EntityManager entityManager, int page, int pageSize) {
+    public PageQuery(EntityManager entityManager, int page, int pageSize) {
         this.entityManager = entityManager;
         this.page = page;
         this.pageSize = pageSize;
