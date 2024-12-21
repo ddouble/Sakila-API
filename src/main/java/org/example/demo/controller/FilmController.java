@@ -42,10 +42,12 @@ public class FilmController {
             @Min(1)
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
+
             @Size.List({
                     @Size(max = 20, message = "Title must be less than 20 characters")
             })
             @RequestParam(name = "title", defaultValue = "") String title,
+
             @Pattern(regexp = "^[0-9]{4}$", message = "Release year must be 4 digits")
             @RequestParam(name = "release_year") String releaseYear
     ) {

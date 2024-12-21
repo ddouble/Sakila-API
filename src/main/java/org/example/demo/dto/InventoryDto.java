@@ -10,23 +10,17 @@ import java.util.Objects;
 public class InventoryDto implements Serializable {
     private final Integer id;
     private final Instant lastUpdate;
-    private final FilmDto film;
     private final StoreDto store;
 
-    public InventoryDto(Integer id, Instant lastUpdate, StoreDto store, FilmDto film) {
+    public InventoryDto(Integer id, Instant lastUpdate, StoreDto store) {
         this.id = id;
         this.lastUpdate = lastUpdate;
         this.store = store;
-        this.film = film;
     }
 
     public Integer getId() {
         return id;
     }
-
-//    public FilmDto getFilm() {
-//        return film;
-//    }
 
     public Instant getLastUpdate() {
         return lastUpdate;
@@ -53,8 +47,7 @@ public class InventoryDto implements Serializable {
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "id = " + id + ", " +
-                "lastUpdate = " + lastUpdate + ", " +
-                "film = " + film + ")";
+                "lastUpdate = " + lastUpdate + ")";
     }
 
 }
