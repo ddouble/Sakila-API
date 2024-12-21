@@ -3,6 +3,10 @@ package org.example.demo.utils;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Utility class for creating inline maps which preserves the order of insertion.
+ * NOTE: Map.of() in Java 9+ does not preserve the order of insertion.
+ */
 public class InlineMap {
 
     @SafeVarargs
