@@ -40,7 +40,6 @@ public class FilmController {
 
     @GetMapping
     public ResponseEntity<Page<FilmDto>> index(
-            @Min(1)
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
 
@@ -52,6 +51,10 @@ public class FilmController {
             @Pattern(regexp = "^[0-9]{4}$", message = "Release year must be 4 digits")
             @RequestParam(name = "release_year", required = false) String releaseYear
     ) {
+
+        if (page < 1) {
+            page = 1;
+        }
 
 //        // the repository way to get a list of entities
 //        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"), Sort.Order.asc("title")));
