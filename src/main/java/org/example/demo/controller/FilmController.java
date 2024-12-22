@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
@@ -40,33 +41,43 @@ public class FilmController {
     @GetMapping
     public ResponseEntity<Page<FilmDto>> index(
             @Min(1)
-            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(name = "page_size", defaultValue = "10") int pageSize,
 
             @Size.List({
                     @Size(max = 20, message = "Title must be less than 20 characters")
             })
-            @RequestParam(name = "title", defaultValue = "") String title,
+            @RequestParam(name = "title", required = false) String title,
 
             @Pattern(regexp = "^[0-9]{4}$", message = "Release year must be 4 digits")
-            @RequestParam(name = "release_year") String releaseYear
+            @RequestParam(name = "release_year", required = false) String releaseYear
     ) {
-
-        if (page < 1) page = 1;
 
 //        // the repository way to get a list of entities
 //        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id"), Sort.Order.asc("title")));
 //        Page<Film> filmList = filmRepository.findAll(pageable);
 
+        LinkedHashMap<String, Object> qParams = new LinkedHashMap<String, Object>();
+
+        String titleCondition = "";
+        if (title != null && !title.isEmpty()) {
+            titleCondition = " AND f.title LIKE :title";
+            qParams.put("title", "%" + title + "%");
+        }
+
+        String releaseYearCondition = "";
+        if (releaseYear != null && !releaseYear.isEmpty()) {
+            releaseYearCondition = " AND f.releaseYear = :releaseYear";
+            qParams.put("releaseYear", releaseYear);
+        }
 
         // the jpql way can do complex query
         Page<Film> filmList = (new PageQuery(entityManager, page, pageSize)).fetch(
-                """
+                String.format("""
                         SELECT f FROM Film f
-                        WHERE f.title LIKE :title AND f.releaseYear = :releaseYear
-                        ORDER BY f.id DESC, f.title ASC""",
-                Map.of("title", "%" + title + "%",
-                        "releaseYear", releaseYear),
+                        WHERE 1=1 %s %s
+                        ORDER BY f.id DESC, f.title ASC""", titleCondition, releaseYearCondition),
+                qParams,
                 Film.class
         );
 
