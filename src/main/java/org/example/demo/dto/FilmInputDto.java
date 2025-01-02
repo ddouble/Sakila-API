@@ -1,6 +1,7 @@
 package org.example.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,16 +21,22 @@ public class FilmInputDto implements Serializable {
     @Size(max = 20, message = "Title must be less than 20 characters")
     private final String title;
 
-    @NotEmpty
+    @NotEmpty(message = "Description is required")
     private final String description;
     private final Integer releaseYear;
 
-    @NotNull
+    @NotNull(message = "Language is required")
     private final Short languageId;
     private final Short originalLanguageId;
+
+    @NotNull(message = "Rental duration is required")
     private final Short rentalDuration;
+
+    @NotNull(message = "Rental rate is required")
     private final BigDecimal rentalRate;
     private final Integer length;
+
+    @NotNull(message = "Replacement cost is required")
     private final BigDecimal replacementCost;
     private final String rating;
     private final String specialFeatures;
